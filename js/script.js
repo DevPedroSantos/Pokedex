@@ -14,6 +14,10 @@ let data = null;
 let isShiny = false;
 
 const fetchPokemon = async (pokemon) => {
+    if (pokemon > 649) {
+        searchPokemon = 650;
+        return null;
+    }
     const APIResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
 
     if (APIResponse.status === 200) {
@@ -49,6 +53,20 @@ const renderPokemon = async (pokemon) => {
         } else {
             pokemonNormal.style.display = 'none';
             pokemonShiny.style.display = 'block';
+        }
+
+        // Verifica se o número do Pokémon é 602 (Tynamo)
+        if (data.id === 602) {
+            pokemonImage.style.bottom = '55%';
+            pokemonImage.style.left = '54%';
+            pokemonImage.style.transform = 'translate(-63%, 20%)';
+            pokemonImage.style.height = '12%';
+        } else {
+            // Se não for Tynamo, redefine as propriedades de estilo para os valores padrão
+            pokemonImage.style.bottom = '';
+            pokemonImage.style.left = '';
+            pokemonImage.style.transform = '';
+            pokemonImage.style.height = '';
         }
     } else {
         pokemonImage.style.display = 'none';
