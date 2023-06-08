@@ -1,6 +1,8 @@
 const pokemonName = document.querySelector('.pokemon_name');
 const pokemonNumber = document.querySelector('.pokemon_number');
 const pokemonImage = document.querySelector('.pokemon_image');
+const pokemonShiny = document.querySelector('.btn-shiny');
+const pokemonNormal = document.querySelector('.btn-normal');
 
 const form = document.querySelector('.form');
 const input = document.querySelector('.input_search');
@@ -8,36 +10,80 @@ const buttonPrev = document.querySelector('.btn-prev');
 const buttonNext = document.querySelector('.btn-next');
 
 let searchPokemon = 1;
+let data = null;
+let isShiny = false;
 
 const fetchPokemon = async (pokemon) => {
     const APIResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
 
-    if(APIResponse.status === 200){
-        const data = await APIResponse.json();
-        return data;
+    if (APIResponse.status === 200) {
+        const responseData = await APIResponse.json();
+        return responseData;
     }
-}
+};
 
 const renderPokemon = async (pokemon) => {
     pokemonName.innerHTML = 'Loading... ';
     pokemonNumber.innerHTML = '';
 
-    const data = await fetchPokemon(pokemon);
+    data = await fetchPokemon(pokemon);
 
-    if(data) {
+    if (data) {
         pokemonImage.style.display = 'block';
         pokemonName.innerHTML = data.name;
         pokemonNumber.innerHTML = data.id;
-        pokemonImage.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'];
+
+        if (isShiny) {
+            pokemonImage.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_shiny'];
+        } else {
+            pokemonImage.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'];
+        }
+
         input.value = '';
         searchPokemon = data.id;
+
+        // Verifica o estado do botão "btn-normal"
+        if (isShiny) {
+            pokemonNormal.style.display = 'block';
+            pokemonShiny.style.display = 'none';
+        } else {
+            pokemonNormal.style.display = 'none';
+            pokemonShiny.style.display = 'block';
+        }
     } else {
         pokemonImage.style.display = 'none';
         pokemonName.innerHTML = 'Not found :c';
         pokemonNumber.innerHTML = '';
         input.value = '';
     }
-}
+};
+
+const updatePokemonImage = (imageUrl) => {
+    pokemonImage.src = imageUrl;
+};
+
+const toggleShiny = () => {
+    isShiny = !isShiny;
+
+    if (data) {
+        if (isShiny) {
+            const shinyImage = data['sprites']['versions']['generation-v']['black-white']['animated']['front_shiny'];
+            updatePokemonImage(shinyImage);
+        } else {
+            const defaultImage = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'];
+            updatePokemonImage(defaultImage);
+        }
+
+        // Atualiza a exibição dos botões "btn-normal" e "btn-shiny"
+        if (isShiny) {
+            pokemonNormal.style.display = 'block';
+            pokemonShiny.style.display = 'none';
+        } else {
+            pokemonNormal.style.display = 'none';
+            pokemonShiny.style.display = 'block';
+        }
+    }
+};
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -54,6 +100,14 @@ buttonPrev.addEventListener('click', () => {
 buttonNext.addEventListener('click', () => {
     searchPokemon++;
     renderPokemon(searchPokemon);
+});
+
+pokemonShiny.addEventListener('click', () => {
+    toggleShiny();
+});
+
+pokemonNormal.addEventListener('click', () => {
+    toggleShiny();
 });
 
 renderPokemon(searchPokemon);
