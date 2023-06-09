@@ -65,11 +65,15 @@ const renderPokemon = async (pokemon) => {
         } else if(data.id === 647){
             pokemonName.style.fontSize = 'clamp(8px, 5vw, 22px)';
             pokemonNumber.style.fontSize = 'clamp(8px, 5vw, 22px)';
+        } else if(data.id === 487){
+            pokemonName.style.fontSize = 'clamp(8px, 5vw, 24px)';
+            pokemonNumber.style.fontSize = 'clamp(8px, 5vw, 24px)';
         } else {
             pokemonName.style.fontSize = '';
             pokemonNumber.style.fontSize = '';
             pokemonNumber.style.right = '';
         }
+        
         
 
         // Verifica se o número do Pokémon é 602 (Tynamo)
