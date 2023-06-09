@@ -10,6 +10,7 @@
   <ul>
     <li>Acrescentei um botão para ver a forma brilhante do Pokémon</li>
     <li>Arrumei alguns erros que tinha a respeito da responsividade de alguns Pokémons</li>
+    <li>Deixei bloaqueado para ser pesquisado até o Pokémon 649</li>
    </ul>
     <div style="display: flex">
       <p>Links para a API utilizada e o vídeo do Manual do Dev</p>
