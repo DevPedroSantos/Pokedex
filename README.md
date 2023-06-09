@@ -16,7 +16,7 @@
       <p>Links para a API utilizada e o vídeo do Manual do Dev</p>
       <ul>
          <li>https://pokeapi.co/</li>
-         <li>https://youtu.be/SjtdH3dWLa8</li>
+         <li><a href="https://youtu.be/SjtdH3dWLa8" target="_blank">Manual do Dev</a></li>
       </ul>
     </div>
 </div>
