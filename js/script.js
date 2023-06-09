@@ -55,6 +55,23 @@ const renderPokemon = async (pokemon) => {
             pokemonShiny.style.display = 'block';
         }
 
+        if (data.id === 641 || data.id === 645){
+            pokemonName.style.fontSize = 'clamp(8px, 5vw, 20px)';
+            pokemonNumber.style.fontSize = 'clamp(8px, 5vw, 20px)';
+        } else if (data.id === 642){
+            pokemonName.style.fontSize = 'clamp(6px, 5vw, 19px)';
+            pokemonNumber.style.fontSize = 'clamp(6px, 5vw, 19px)';
+            pokemonNumber.style.right = '25%';
+        } else if(data.id === 647){
+            pokemonName.style.fontSize = 'clamp(8px, 5vw, 22px)';
+            pokemonNumber.style.fontSize = 'clamp(8px, 5vw, 22px)';
+        } else {
+            pokemonName.style.fontSize = '';
+            pokemonNumber.style.fontSize = '';
+            pokemonNumber.style.right = '';
+        }
+        
+
         // Verifica se o número do Pokémon é 602 (Tynamo)
         if (data.id === 602) {
             pokemonImage.style.bottom = '55%';
